@@ -697,7 +697,7 @@ impl Component for BookmarksTab<'_> {
         ) {
             if let Event::Key(key) = event {
                 match key.code {
-                    KeyCode::Char('s') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+                    KeyCode::Esc => {
                         // TODO: Handle error
                         commander.run_describe(
                             describe_after_new_change.as_str(),
@@ -708,11 +708,6 @@ impl Component for BookmarksTab<'_> {
                         return Ok(ComponentInputResult::HandledAction(
                             ComponentAction::ViewLog(commander.get_current_head()?),
                         ));
-                    }
-                    KeyCode::Esc => {
-                        self.describe_textarea = None;
-                        self.describe_after_new_change = None;
-                        return Ok(ComponentInputResult::Handled);
                     }
                     _ => {}
                 }
